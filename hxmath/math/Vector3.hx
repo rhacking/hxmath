@@ -737,11 +737,11 @@ abstract Vector3(Vector3Type) from Vector3Type to Vector3Type
     }
 
     /**
-     *  Rotate this vector theta radians around axis
+     *  Rotate this vector around an axis.
      *  
-     *  @param axis     The axis to rotate around
-     *  @param theta    The angle in radians
-     *  @return         The modified object
+     *  @param angleDegrees     The angle to rotate in degrees.
+     *  @param axis             The axis to rotate around.
+     *  @return                 The modified object
      */
     public inline function rotate(angleDegrees:Float, axis:Vector3)
     {
