@@ -29,7 +29,11 @@ class Vector3Default
     }
 }
 
+#if kha
+typedef Vector3Type = kha.math.FastVector3;
+#else
 typedef Vector3Type = Vector3Default;
+#end
 
 /**
  * A 3D vector.
@@ -67,7 +71,11 @@ abstract Vector3(Vector3Type) from Vector3Type to Vector3Type
      */
     public inline function new(x:Float, y:Float, z:Float)
     {
+        #if kha
+        this = new kha.math.FastVector3(x, y, z);
+        #else
         this = new Vector3Default(x, y, z);
+        #end
     }
     
     /**
@@ -726,6 +734,20 @@ abstract Vector3(Vector3Type) from Vector3Type to Vector3Type
         }
         
         return self;
+    }
+
+    /**
+     *  Rotate this vector theta radians around axis
+     *  
+     *  @param axis     The axis to rotate around
+     *  @param theta    The angle in radians
+     *  @return         The modified object
+     */
+    public inline function rotate(angleDegrees:Float, axis:Vector3)
+    {
+        var self:Vector3 = this;
+        this = Quaternion.fromAxisAngle(angleDegrees, axis).rotate(self);
+        return this;
     }
     
     private inline function get_length():Float

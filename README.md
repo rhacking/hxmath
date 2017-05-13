@@ -1,3 +1,5 @@
+This fork adds support for Kha and adds various other utility functions
+
 # HxMath
 
 [![Build Status](https://travis-ci.org/tbrosman/hxmath.svg?branch=master)](https://travis-ci.org/tbrosman/hxmath)

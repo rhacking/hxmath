@@ -28,6 +28,8 @@ class Vector2Default
 
 #if HXMATH_USE_OPENFL_STRUCTURES
 typedef Vector2Type = flash.geom.Point;
+#elseif kha
+typedef Vector2Type = kha.math.FastVector2;
 #else
 typedef Vector2Type = Vector2Default;
 #end
@@ -78,6 +80,8 @@ abstract Vector2(Vector2Type) from Vector2Type to Vector2Type
     {
         #if HXMATH_USE_OPENFL_STRUCTURES
         this = new flash.geom.Point(x, y);
+        #elseif kha
+        this = new kha.math.FastVector2(x, y);
         #else
         this = new Vector2Default(x, y);
         #end

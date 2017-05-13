@@ -32,7 +32,35 @@ class QuaternionDefault
     }
 }
 
+#if kha
+abstract KhaQuaternionWrapper(kha.math.Quaternion) from kha.math.Quaternion to kha.math.Quaternion
+{
+    public var x(get, set):Float;
+    inline function get_x():Float { return this.x; }
+    inline function set_x(x:Float):Float { return (this.x = x); }
+
+    public var y(get, set):Float;
+    inline function get_y():Float { return this.y; }
+    inline function set_y(y:Float):Float { return (this.y = y); }
+
+    public var z(get, set):Float;
+    function get_z():Float { return this.z; }
+    function set_z(z:Float):Float { return (this.z = z); }
+
+    public var s(get, set):Float;
+    function get_s():Float { return this.w; }
+    function set_s(zx:Float):Float { return (this.w = s); }
+
+    public function new(s:Float, x:Float, y:Float, z:Float)
+    {
+        this = new kha.math.Quaternion(x, y, z, s);
+    }
+}
+
+typedef QuaternionType = KhaQuaternionWrapper;
+#else
 typedef QuaternionType = QuaternionDefault;
+#end
 
 /**
  * Quaternion for rotation in 3D.
@@ -71,7 +99,11 @@ abstract Quaternion(QuaternionType) from QuaternionType to QuaternionType
      */
     public inline function new(s:Float, x:Float, y:Float, z:Float) 
     {
+        #if kha
+        this = new KhaQuaternionWrapper(s, x, y, z);
+        #else
         this = new QuaternionDefault(s, x, y, z);
+        #end
     }
     
     /**
