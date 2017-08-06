@@ -1,7 +1,6 @@
--cp /Users/Roel/Google Drive/Projects/hxmath_kha/kha/Sources
--cp /Users/Roel/Google Drive/Projects/hxmath_kha/kha/Backends/HTML5
--cp /Users/Roel/Google Drive/Projects/hxmath_kha/test/kha
--cp /Users/Roel/Google Drive/Projects/hxmath_kha
+-cp kha/Sources
+-cp kha/Backends/HTML5
+-cp test/kha
 -cp .
 -D sys_g1
 -D sys_g2

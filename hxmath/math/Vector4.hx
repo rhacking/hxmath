@@ -1,5 +1,10 @@
 package hxmath.math;
 
+import haxe.macro.Context;
+import haxe.macro.Expr;
+
+using haxe.macro.ExprTools;
+
 typedef Vector4Shape =
 {
     public var x:Float;
@@ -95,6 +100,7 @@ abstract Vector4(Vector4Type) from Vector4Type to Vector4Type
      * @param rawData   The input array.
      * @return          The constructed structure.
      */
+     @:from
     public static inline function fromArray(rawData:Array<Float>):Vector4
     {
         if (rawData.length != Vector4.elementCount)
@@ -116,6 +122,37 @@ abstract Vector4(Vector4Type) from Vector4Type to Vector4Type
     {
         return new Vector4(other.x, other.y, other.z, other.w);
     }
+
+    @:from
+    macro static function fromArrayMacro(inExpr) {
+        var expr = Context.getTypedExpr(Context.typeExpr(inExpr));
+        switch (expr) {
+            case macro [$x, $y, $z, $w]:
+                var fx = exprToFloat(x);
+                var fy = exprToFloat(y);
+                var fz = exprToFloat(z);
+                var fw = exprToFloat(w);
+                return macro new hxmath.math.Vector4($v{fx}, $v{fx}, $v{fx}, $v{fw});
+            default:
+                throw 'Unsuppored expr: ${expr.toString()}';
+        }
+    }
+
+    #if macro
+    private static function exprToFloat(expr : Expr) {
+        switch (expr.expr) {
+            case EConst(const):
+                switch (const) {
+                    case CFloat(val) | CInt(val):
+                        return Std.parseFloat(val);
+                    default:
+                        throw "Constant not a float";
+                }
+            default:
+                throw "Expr not a constant";
+        }
+    }
+    #end
     
     /**
      * Dot product.

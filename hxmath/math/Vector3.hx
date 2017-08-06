@@ -1,5 +1,10 @@
 package hxmath.math;
 
+import haxe.macro.Context;
+import haxe.macro.Expr;
+
+using haxe.macro.ExprTools;
+
 typedef Vector3Shape =
 {
     public var x:Float;
@@ -77,6 +82,36 @@ abstract Vector3(Vector3Type) from Vector3Type to Vector3Type
         this = new Vector3Default(x, y, z);
         #end
     }
+
+    @:from
+    macro static function fromArrayMacro(inExpr) {
+        var expr = Context.getTypedExpr(Context.typeExpr(inExpr));
+        switch (expr) {
+            case macro [$x, $y, $z]:
+                var fx = exprToFloat(x);
+                var fy = exprToFloat(y);
+                var fz = exprToFloat(z);
+                return macro new hxmath.math.Vector3($v{fx}, $v{fx}, $v{fx});
+            default:
+                throw 'Unsuppored expr: ${expr.toString()}';
+        }
+    }
+
+    #if macro
+    private static function exprToFloat(expr : Expr) {
+        switch (expr.expr) {
+            case EConst(const):
+                switch (const) {
+                    case CFloat(val) | CInt(val):
+                        return Std.parseFloat(val);
+                    default:
+                        throw "Constant not a float";
+                }
+            default:
+                throw "Expr not a constant";
+        }
+    }
+    #end
     
     /**
      * Construct a Vector3 from an array.
