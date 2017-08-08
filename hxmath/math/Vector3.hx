@@ -93,7 +93,7 @@ abstract Vector3(Vector3Type) from Vector3Type to Vector3Type
                 var fz = exprToFloat(z);
                 return macro new hxmath.math.Vector3($v{fx}, $v{fy}, $v{fz});
             default:
-                throw 'Unsuppored expr: ${expr.toString()}';
+                return inExpr;
         }
     }
 

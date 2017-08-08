@@ -133,7 +133,7 @@ abstract Vector4(Vector4Type) from Vector4Type to Vector4Type
                 var fw = exprToFloat(w);
                 return macro new hxmath.math.Vector4($v{fx}, $v{fy}, $v{fz}, $v{fw});
             default:
-                throw 'Unsuppored expr: ${expr.toString()}';
+                return inExpr;
         }
     }
 
