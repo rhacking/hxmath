@@ -84,7 +84,7 @@ abstract Vector3(Vector3Type) from Vector3Type to Vector3Type
     }
 
     @:from
-    macro static function fromArrayMacro(inExpr) {
+    macro static function fromArrayMacro(inExpr : ExprOf<Array<Int>>) {
         var expr = Context.getTypedExpr(Context.typeExpr(inExpr));
         switch (expr) {
             case macro [$x, $y, $z]:
