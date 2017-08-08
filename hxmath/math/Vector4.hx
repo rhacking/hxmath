@@ -100,7 +100,6 @@ abstract Vector4(Vector4Type) from Vector4Type to Vector4Type
      * @param rawData   The input array.
      * @return          The constructed structure.
      */
-     @:from
     public static inline function fromArray(rawData:Array<Float>):Vector4
     {
         if (rawData.length != Vector4.elementCount)
@@ -132,7 +131,7 @@ abstract Vector4(Vector4Type) from Vector4Type to Vector4Type
                 var fy = exprToFloat(y);
                 var fz = exprToFloat(z);
                 var fw = exprToFloat(w);
-                return macro new hxmath.math.Vector4($v{fx}, $v{fx}, $v{fx}, $v{fw});
+                return macro new hxmath.math.Vector4($v{fx}, $v{fy}, $v{fz}, $v{fw});
             default:
                 throw 'Unsuppored expr: ${expr.toString()}';
         }
