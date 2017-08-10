@@ -97,6 +97,20 @@ abstract Vector3(Vector3Type) from Vector3Type to Vector3Type
         }
     }
 
+    @:from
+    macro static function fromArrayMacroFloat(inExpr : ExprOf<Array<Float>>) {
+        var expr = Context.getTypedExpr(Context.typeExpr(inExpr));
+        switch (expr) {
+            case macro [$x, $y, $z]:
+                var fx = exprToFloat(x);
+                var fy = exprToFloat(y);
+                var fz = exprToFloat(z);
+                return macro new hxmath.math.Vector3($v{fx}, $v{fy}, $v{fz});
+            default:
+                return inExpr;
+        }
+    }
+
     #if macro
     private static function exprToFloat(expr : Expr) {
         switch (expr.expr) {

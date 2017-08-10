@@ -1,7 +1,7 @@
 -cp kha/Sources
 -cp kha/Backends/HTML5
 -cp test/kha
--cp .
+-cp Sources
 -D sys_g1
 -D sys_g2
 -D sys_g3

@@ -137,6 +137,21 @@ abstract Vector4(Vector4Type) from Vector4Type to Vector4Type
         }
     }
 
+    @:from
+    macro static function fromArrayMacroFloat(inExpr : ExprOf<Array<Float>>) {
+        var expr = Context.getTypedExpr(Context.typeExpr(inExpr));
+        switch (expr) {
+            case macro [$x, $y, $z, $w]:
+                var fx = exprToFloat(x);
+                var fy = exprToFloat(y);
+                var fz = exprToFloat(z);
+                var fw = exprToFloat(w);
+                return macro new hxmath.math.Vector4($v{fx}, $v{fy}, $v{fz}, $v{fw});
+            default:
+                return inExpr;
+        }
+    }
+
     #if macro
     private static function exprToFloat(expr : Expr) {
         switch (expr.expr) {
